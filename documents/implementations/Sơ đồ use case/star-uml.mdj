@@ -71,7 +71,7 @@
 											"top": 1349,
 											"width": 108.32275390625,
 											"height": 13,
-											"text": "Quản trị hệ thống"
+											"text": "Người dùng"
 										},
 										{
 											"_type": "LabelView",
@@ -8155,7 +8155,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Quản trị hệ thống",
+					"name": "Người dùng",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
