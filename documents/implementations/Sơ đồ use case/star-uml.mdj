@@ -4607,7 +4607,7 @@
 											"top": 1621,
 											"width": 223.01220703125,
 											"height": 13,
-											"text": "Hệ thống biên dịch hỗ trợ ứng dụng"
+											"text": "Ứng dụng biên dịch"
 										},
 										{
 											"_type": "LabelView",
@@ -9933,7 +9933,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Hệ thống biên dịch hỗ trợ ứng dụng",
+					"name": "Ứng dụng biên dịch",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -34915,9 +34915,9 @@
 														"$ref": "AAAAAAF5u/xVEuk9RUw="
 													},
 													"font": "Arial;13;0",
-													"left": 64.72998046875,
+													"left": 62.55908203125,
 													"top": 5,
-													"width": 141.9052734375,
+													"width": 127.34375,
 													"height": 13,
 													"text": "ScriptSequenceDiagram"
 												},
@@ -34930,7 +34930,7 @@
 													"font": "Arial;13;1",
 													"left": 45,
 													"top": 5,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}
@@ -41792,9 +41792,9 @@
 														"$ref": "AAAAAAF5vAR/duoECp4="
 													},
 													"font": "Arial;13;0",
-													"left": 32.72998046875,
+													"left": 30.55908203125,
 													"top": 13,
-													"width": 141.91162109375,
+													"width": 128.0673828125,
 													"height": 13,
 													"text": "ClientSequenceDiagram"
 												},
@@ -41807,7 +41807,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}
@@ -46380,7 +46380,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5vAR/dOoBct8="
 							},
-							"name": "Role1"
+							"name": "Role1",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -46524,9 +46525,9 @@
 														"$ref": "AAAAAAF5vcdG5SSgEGc="
 													},
 													"font": "Arial;13;0",
-													"left": 32.72998046875,
+													"left": 30.55908203125,
 													"top": 5,
-													"width": 188.8779296875,
+													"width": 169.20654296875,
 													"height": 13,
 													"text": "ExecuteScriptSequenceDiagram"
 												},
@@ -46539,7 +46540,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 5,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}
@@ -50238,9 +50239,9 @@
 														"$ref": "AAAAAAF5vggXuUDAnCg="
 													},
 													"font": "Arial;13;0",
-													"left": 32.72998046875,
+													"left": 30.55908203125,
 													"top": 13,
-													"width": 132.5234375,
+													"width": 119.93603515625,
 													"height": 13,
 													"text": "ToolSequenceDiagram"
 												},
@@ -50253,7 +50254,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}
@@ -53851,9 +53852,9 @@
 														"$ref": "AAAAAAF5vhmkKno7Kc4="
 													},
 													"font": "Arial;13;0",
-													"left": 24.72998046875,
+													"left": 22.55908203125,
 													"top": 13,
-													"width": 183.83154296875,
+													"width": 165.607421875,
 													"height": 13,
 													"text": "UpdateClientSequenceDiagram"
 												},
@@ -53866,7 +53867,7 @@
 													"font": "Arial;13;1",
 													"left": 5,
 													"top": 13,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}
@@ -56552,9 +56553,9 @@
 														"$ref": "AAAAAAF5w2Q2sX4Y9HA="
 													},
 													"font": "Arial;13;0",
-													"left": 32.72998046875,
+													"left": 30.55908203125,
 													"top": 13,
-													"width": 174.443359375,
+													"width": 157.47607421875,
 													"height": 13,
 													"text": "UpdateToolSequenceDiagram"
 												},
@@ -56567,7 +56568,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}
@@ -59122,9 +59123,9 @@
 														"$ref": "AAAAAAF5zaMZQYMHm9c="
 													},
 													"font": "Arial;13;0",
-													"left": 32.72998046875,
+													"left": 30.55908203125,
 													"top": 13,
-													"width": 232.25146484375,
+													"width": 209.45703125,
 													"height": 13,
 													"text": "ConnectToolManagerSequenceDiagram"
 												},
@@ -59137,7 +59138,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}
