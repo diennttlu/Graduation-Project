@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+	<ProjectGuid>{E07E006C-7F76-433F-A280-9D7BE38EA5CB}</ProjectGuid>
+	<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Devmoba.ReportToToolManager\Devmoba.ReportToToolManager.csproj" />
+  </ItemGroup>
+
+</Project>

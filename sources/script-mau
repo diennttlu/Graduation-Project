@@ -1,0 +1,137 @@
+Write text file
+
+function main() {
+	// code
+}
+
+/***
+descriptions: ghi file text
+params: string fileName, string text
+returns: bool
+***/
+function writeTextFile (fileName, text) {
+	//var text = "A class is the most powerful data type in C#. Like a structure, " +
+    //    "a class defines the data and behavior of the data type. ";
+  	var debugDir = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
+  	var dataDir = `${debugDir}\\Data`;
+
+	if (!Directory.Exists(dataDir)) {
+    	Directory.CreateDirectory(dataDir);
+    }
+  	var Path = xHost.type('System.IO.Path');
+  	var filePath = Path.Combine(dataDir, fileName);
+  	File.WriteAllText(filePath, text);
+  	if (File.Exists(filePath)) {
+      	return true;
+    }     
+  	return false;
+}
+
+/***
+descriptions: get đường dẫn của thư mục chứa file .csproj
+params: không param
+returns: string path
+***/
+function getDataDirectory() {
+  	var debugDir = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
+  	var dataDir = `${debugDir}\\Data`;
+
+	if (Directory.Exists(dataDir)) {
+    	return dataDir;
+    }
+	return null;
+}
+------------------------------------------------------------------------------------------
+Read text file
+
+function main() {
+	Console.Log(this.readTextFile("text_1.txt"));
+}
+
+/***
+descriptions: đọc file text
+params: string fileName
+returns: string
+***/
+function readTextFile(fileName) {
+  	var dataDir = S7.getDataDirectory();
+  	if (dataDir != null){
+  		var path = `${dataDir}\\${fileName}`;
+  		if (File.Exists(path)) {
+    		return File.ReadAllText(path);
+    	}
+    }
+}
+
+Console.Log(readTextFile("WriteText.txt"));
+Console.Log(readTextFile("WriteText.txt"));
+---------------------------------------------------------------------------------------------
+Download exe file
+
+function main() {
+	// code
+}
+
+/***
+descriptions: tải file exe từ https://localhost:44308/api/tools/downloadfile/{fileName}
+params: string fileName
+returns: full đường dẫn đến file exe vừa tải hoàn thành
+***/
+function downloadFile(fileName){
+  	var webClient = new WebClient();
+  	var debugDir = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
+  	var filesDir = `${debugDir}\\Files`;
+	
+	if (!Directory.Exists(filesDir)) {
+    	Directory.CreateDirectory(filesDir);
+    }
+  	var filePath = Path.Combine(filesDir, fileName);
+  	var uri = new Uri(`https://localhost:44308/api/tools/downloadfile/${fileName}`);
+	webClient.DownloadFile(uri, filePath);
+    return filePath;	
+}
+----------------------------------------------------------------------------------------------
+Get all filenames in folder
+
+function main () {
+  var fileNames = this.getFileNames("Files", "*.exe");
+  //console.Log();
+  fileNames.forEach(item => Console.Log(item));
+}
+/***
+descriptions: get danh sách file name trong một folder
+params: string folderPath, string extension
+returns: string[] fileNames
+***/
+function getFileNames (folder, extension) {
+  	var debugDir = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
+  	var folderPath = `${debugDir}\\${folder}`;
+	var fileNames = [];
+  	if (Directory.Exists(folderPath)) {
+    	var files = Directory.GetFiles(folderPath, extension);
+      	for (var i = 0; i < files.Length; i++) {
+        	fileNames.push(Path.GetFileName(files[i]));
+        }
+    }
+  	return fileNames;
+}
+
+
+-----------------------------------------------------------------------------------------------
+Run file exe
+
+function main() {
+	var sampleAppFileName = "C:\\Users\\Developer\\Desktop\\Project\\tool-mgr\\30_implementation\\35_sources\\Devmoba.ToolClient\\Devmoba.ToolClient\\bin\\Debug\\Files\\TestReport.exe";
+  	runExeFile(sampleAppFileName);
+}
+/***
+descriptions: Chạy file .exe
+params: {string} - fileName đường dẫn đến file .exe cần chạy
+returns: process
+***/
+function runExeFile(fileName){
+  	var process = Process.Start(fileName);
+  	return process;
+} 
+
+
