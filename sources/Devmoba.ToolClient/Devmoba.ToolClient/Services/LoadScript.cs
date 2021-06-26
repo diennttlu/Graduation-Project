@@ -4,7 +4,9 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Devmoba.ToolClient.Services
 {
@@ -30,6 +32,13 @@ namespace Devmoba.ToolClient.Services
 
         public void AddToLibraries()
         {
+            using (var webClient = new WebClient())
+            {
+                var esprimaUrl = "https://unpkg.com/esprima@~4.0/dist/esprima.js";
+                var esprimaLib = webClient.DownloadString(esprimaUrl);
+                _libraries.Add(esprimaLib);
+            }
+
             var projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
 
             var files = Directory.GetFiles($"{projectDirectory}\\Libraries\\js", "*.js");
