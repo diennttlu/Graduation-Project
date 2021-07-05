@@ -1,0 +1,14 @@
+1) Tổng quan về dự án
+	- Giới thiệu bài toán: Vấn đề đang gặp phải, giải pháp hiện tại;
+	- Yêu cầu thực tế của bài toán;
+	- Sơ đồ use-case -> liệt kê một số chức năng chính.
+2) Công nghệ sử dụng và kiến trúc tổng thể
+	- Giới thiệu các công nghệ sẽ sử dụng trong dự án;
+	- Mục đích, ưu điểm, nhược điểm của công nghệ nêu trên;
+	- Mô tả kiến trúc của hệ thống (show các sơ đồ có liên quan).
+3) Triên khai
+	- Tóm tắt nội dung mục 2.2.2 trong báo cáo
+4) Trình bày nghiệp vụ
+	Đang suy nghĩ...
+5) Demo
+6) Định hướng phát triển trong tương lai
