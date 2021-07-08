@@ -12,3 +12,42 @@
 	Đang suy nghĩ...
 5) Demo
 6) Định hướng phát triển trong tương lai
+
+
+
+
+
+
+
+
+
+Nội dung cần trình bay trong slide
+
+I. Tổng quan hệ thống
+	- Mô tả bài toán: Vấn đề gặp phải, giải pháp hiện tại
+	- Yêu cầu của hệ thống
+	- Sơ đồ use-case
+	- Tác nhân tham gia hệ thống
+II. Công nghệ sử dụng 
+	- Trình bày các phần đánh dấu trong báo cáo
+III. Kiến trúc tổng thể
+	- Trình bày các phần đánh dấu trong báo cáo
+	
+IV. Đặc tả chức năng chính
+	1. Quản lý máy client
+		Show giao diện 
+		Nội dung đặc tả tự trình bày
+	2. Quản lý script
+		Show giao diện 
+		Nội dung đặc tả tự trình bày
+	3. Thực thi script
+		Show giao diện 
+		Nội dung đặc tả tự trình bày
+	4. Quản lý ứng dụng
+		Show giao diện 
+		Nội dung đặc tả tự trình bày
+	5. Gửi email danh sách ứng dụng ngừng hoạt động
+		Do không có giao diện nên show nội dung đặc tả
+		đã được đánh dấu
+	5. Ứng dụng biên dịch (để sau)
+	
