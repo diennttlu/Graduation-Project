@@ -1,0 +1,57 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Devmoba.ToolManager.Localization
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.AspNetCore.Mvc.UI.Packages.SignalR
+@model Devmoba.ToolManager.Web.Pages.ClientMachines.IndexModel
+
+@inject IHtmlLocalizer<ToolManagerResource> L
+@{
+    ViewData["Title"] = @L["ClientMachineList"];
+}
+@section scripts{
+    <script>
+        var allClientStatus = @Html.Raw(ViewData["allClientStatus"]);
+    </script>
+    <abp-script-bundle name="knockout" />
+    <abp-script type="typeof(SignalRBrowserScriptContributor)" />
+    <abp-script-bundle name="chosen" />
+    <abp-script src="/Pages/ClientMachines/js/index.js" />
+}
+
+@section styles {
+    <abp-style-bundle name="chosen" />
+    <abp-style src="/Pages/ClientMachines/css/index.css" />
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <h4>@L["ClientMachineList"]</h4>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-row>
+            <abp-column id="message-error" size-md="_6"></abp-column>
+        </abp-row>
+        <abp-table striped-rows="true" id="clientMachineTable" class="table-bordered">
+            <thead>
+                <tr>
+                    <th>@L["ID"]</th>
+                    <th>@L["Username"]</th>
+                    <th>@L["IPLan"]</th>
+                    <th>@L["IPPublic"]</th>
+                    <th>@L["Status"]</th>
+                    <th>@L["LastUpdate"]</th>
+                    <th>@L["CPU"]</th>
+                    <th>@L["Memory"]</th>
+                    <th>@L["Command"]</th>
+                </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>
+
+

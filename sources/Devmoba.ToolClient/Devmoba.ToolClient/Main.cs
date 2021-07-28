@@ -79,7 +79,7 @@ namespace Devmoba.ToolClient
             await _connection.InvokeAsync(
                 "UpdateClient",
                 CommonMethods.GetIPLan(),
-                //txtIP.Text, // fix ip để test
+                //"192.168.166.103", // fix ip để test
                 CommonMethods.GetCpuPercentage(),
                 CommonMethods.GetMemoryPercentage());
         }

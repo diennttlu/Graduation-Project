@@ -1,0 +1,73 @@
+﻿body {
+}
+
+.row {
+    margin-bottom: 5px;
+}
+
+.console-content {
+/*    overflow: auto;*/
+    list-style: none;
+    padding: 0px;
+}
+
+.CodeMirror.cm-s-monokai {
+    height: 550px;
+}
+
+.tab-content.tab-console {
+    height: 504px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    word-break: break-all;
+}
+
+.tab-console .console-content {
+    border: none;
+}
+
+    .tab-console .console-content .error-result {
+        color: #b70f0f;
+    }
+
+    .nav.nav-tabs {
+        height: 39px;
+    }
+
+.nav-tabs .nav-link {
+    padding: 6px 8px;
+    color: #000000;
+}
+
+    .nav-tabs .nav-link.active {
+        font-size: 17px;
+        background-color: #343a40;
+        color: #ffffff;
+    }
+
+.list-group-item .card .card-body {
+    white-space: normal;
+}
+
+.card-body.collapse {
+    height: auto;
+    max-height: 270px;
+    overflow-y: scroll;
+}
+
+
+#sidebar {
+    height: 850px;
+    overflow-y: scroll;
+}
+
+.btn-run-script {
+    /* height: 28px;
+    width: 30px;*/
+    margin-right: 5px;
+}
+
+.card-header .btn {
+    padding: 2px 8px;
+}
+

@@ -1,0 +1,111 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Devmoba.ToolManager.Localization
+@using Volo.Abp.Users
+@model Devmoba.ToolManager.Web.Pages.IndexModel
+@inject IHtmlLocalizer<ToolManagerResource> L
+@inject ICurrentUser CurrentUser
+@section styles {
+    <abp-style-bundle name="chosen" />
+    <abp-style-bundle>
+        <abp-style src="/Pages/Index.css" />
+    </abp-style-bundle>
+}
+@section scripts {
+    <script>
+        @*var allClientStatus = @Html.Raw(ViewData["allClientStatus"]);*@
+    </script>
+    <abp-script-bundle name="knockout" />
+    <abp-script-bundle name="chosen" />
+    <abp-script-bundle>
+        <abp-script src="/Pages/Index.js" />
+    </abp-script-bundle>
+}
+@if (CurrentUser.IsAuthenticated)
+{
+    Response.Redirect("ClientMachines");
+    @*<div class="container-fluid dashboard-content">
+         <h3 class="dashboard-title">@L["Dashboard"]</h3>
+        <div class="row">
+                     <div class="col-lg-3 col-md-12 col-sm-12">
+                         <div class="info-general info-client">
+                             <div class="row">
+                                 <div class="col-lg-4 col-md-5 col-sm-5 ic ic-client">
+                                     <i class="fa fa-desktop" aria-hidden="true"></i>
+                                     <h5>Client</h5>
+                                 </div>
+                                 <div class="col-lg-8 col-md-7 col-sm-7 font-client">
+                                     <div class="row">
+                                         <div class="col-md-6">
+                                             <h4>Online</h4>
+                                             <h1>@Model.ClientReport.OnlineNumber</h1>
+                                         </div>
+                                         <div class="col-md-6">
+                                             <h4>Offline</h4>
+                                             <h1>@Model.ClientReport.OfflineNumber</h1>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-lg-3 col-md-12 col-sm-12">
+                         <div class="info-general info-tool">
+                             <div class="row">
+                                 <div class="col-lg-4 col-md-5 col-sm-5 ic ic-tool">
+                                     <i class="far fa-window-restore"></i>
+                                     <h5>Tool</h5>
+                                 </div>
+                                 <div class="col-lg-8 col-md-7 col-sm-7 font-tool">
+                                     <div class="row">
+                                         <div class="col-md-6">
+                                             <h4>Active</h4>
+                                             <h1>@Model.ToolReport.ActiveNumber</h1>
+                                         </div>
+                                         <div class="col-md-6">
+                                             <h4>Inactive</h4>
+                                             <h1>@Model.ToolReport.InactiveNumber</h1>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-md-12">
+                         <abp-card>
+                             <abp-card-header>
+                                 <abp-row>
+                                     <abp-column size-md="_6">
+                                         <h4>Overview</h4>
+                                     </abp-column>
+                                 </abp-row>
+                             </abp-card-header>
+                             <abp-card-body>
+                                 <div class="info-table">
+                                     <abp-table striped-rows="true" id="dashboardTable" class="table-bordered">
+                                         <thead>
+                                             <tr>
+                                                 <th>@L["ClientName"]</th>
+                                                 <th>@L["IPLan"]</th>
+                                                 <th>@L["IPPublic"]</th>
+                                                 <th>@L["ClientStatus"]</th>
+                                                 <th>@L["ToolActive"]</th>
+                                                 <th>@L["ToolInactive"]</th>
+                                                 <th>@L["Total"]</th>
+                                             </tr>
+                                         </thead>
+                                     </abp-table>
+                                 </div>
+                             </abp-card-body>
+                         </abp-card>
+
+                     </div>
+                 </div>
+             </div>*@
+}
+else
+{
+    Response.Redirect("Account/Login");
+}

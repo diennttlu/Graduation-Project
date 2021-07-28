@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Devmoba.ToolManager</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210315035319_Add_Dependency_Table.cs" />
+    <Compile Remove="Migrations\20210315035319_Add_Dependency_Table.Designer.cs" />
+    <Compile Remove="Migrations\20210315040013_Add_Dependency_Table.cs" />
+    <Compile Remove="Migrations\20210315040013_Add_Dependency_Table.Designer.cs" />
+    <Compile Remove="Migrations\20210315043020_Add_Dependency_Table.cs" />
+    <Compile Remove="Migrations\20210315043020_Add_Dependency_Table.Designer.cs" />
+    <Compile Remove="Migrations\20210317064136_Add_Relationship_ClientMachine_AppUser.cs" />
+    <Compile Remove="Migrations\20210317064136_Add_Relationship_ClientMachine_AppUser.Designer.cs" />
+    <Compile Remove="Migrations\20210317064409_Add_Relationship_ClientMachine_AppUser.cs" />
+    <Compile Remove="Migrations\20210317064409_Add_Relationship_ClientMachine_AppUser.Designer.cs" />
+    <Compile Remove="Migrations\20210317064928_Add_Relationship_ClientMachine_AppUser.cs" />
+    <Compile Remove="Migrations\20210317064928_Add_Relationship_ClientMachine_AppUser.Designer.cs" />
+    <Compile Remove="Migrations\20210317072402_Add_Relationship_ClientMachine_AppUser.cs" />
+    <Compile Remove="Migrations\20210317072402_Add_Relationship_ClientMachine_AppUser.Designer.cs" />
+    <Compile Remove="Migrations\20210317072812_Add_Relationship_ClientMachine_AppUser.cs" />
+    <Compile Remove="Migrations\20210317072812_Add_Relationship_ClientMachine_AppUser.Designer.cs" />
+    <Compile Remove="Migrations\20210317073136_Add_Relationship_ClientMachine_AppUser.cs" />
+    <Compile Remove="Migrations\20210317073136_Add_Relationship_ClientMachine_AppUser.Designer.cs" />
+    <Compile Remove="Migrations\20210324023759_Add_all_table.cs" />
+    <Compile Remove="Migrations\20210324023759_Add_all_table.Designer.cs" />
+    <Compile Remove="Migrations\20210519050422_Edit_ClientMachine_Table.cs" />
+    <Compile Remove="Migrations\20210519050422_Edit_ClientMachine_Table.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Devmoba.ToolManager.EntityFrameworkCore\Devmoba.ToolManager.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.6" />
+  </ItemGroup>
+
+</Project>

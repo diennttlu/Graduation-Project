@@ -1,0 +1,103 @@
+﻿body {
+
+}
+.card-body, input[type=text], .card-body select {
+    font-size: 15px;
+}
+
+.table td, .table th {
+    padding: 5px 8px;
+}
+
+.table td {
+    padding: 5px 12px;
+}
+
+.dataTables_scrollHead {
+    overflow: visible !important;
+}
+
+    .dataTables_scrollHead th div.chosen-container {
+        font-size: inherit;
+        font-weight: normal;
+    }
+
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+    table td.content-cell {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    table td.scroll-cell {
+        overflow-x: scroll;
+        white-space: nowrap;
+    }
+
+.scroll-cell::-webkit-scrollbar {
+    width: 0px;
+    height: 7px;
+}
+
+        .scroll-cell::-webkit-scrollbar-track {
+            border-radius: 0px;
+        }
+
+        .scroll-cell::-webkit-scrollbar-thumb {
+            background: #b1b0b0;
+        }
+
+            .scroll-cell::-webkit-scrollbar-thumb:hover {
+                background: #b0afaf;
+            }
+
+.online-status {
+    color: green;
+}
+
+.offline-status {
+    color: red;
+}
+
+.lb-checkbox input[type=checkbox] {
+    height: 16px;
+    width: 16px;
+}
+
+.btn-show-comment {
+    font-size: 19px;
+}
+
+.list-group-item {
+    padding: 8px 8px;
+}
+.card-header {
+    padding: 8px 8px;
+}
+/* style scrollbar */
+.custom-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 0px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background: #b1b0b0;
+    border-radius: 10px;
+}
+
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background: #b0afaf;
+    }
+
+.btn-command button {
+    margin-left: 10px;
+}

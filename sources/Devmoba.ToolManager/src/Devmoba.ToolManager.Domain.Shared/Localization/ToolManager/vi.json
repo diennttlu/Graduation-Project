@@ -1,0 +1,95 @@
+{
+  "culture": "vi",
+  "texts": {
+    "ToolManager": "Hệ thống quản lý ứng dụng",
+
+    "Menu:Home": "Trang chủ",
+    "Menu:Script": "Script",
+    "Menu:RunScript": "Chạy Script",
+    "Menu:ClientMachine": "Client",
+    "Menu:Tool": "Ứng dụng",
+
+    "Permission:ScriptGroup": "Scripts",
+    "Permission:Scripts": "Quản lý script",
+    "Permission:Scripts.RunScript": "Chạy script",
+    "Permission:Scripts.Create": "Thêm mới script",
+    "Permission:Scripts.Edit": "Cập nhật script",
+    "Permission:Scripts.Delete": "Xóa script",
+
+    "Permission:ClientMachineGroup": "Clients",
+    "Permission:ClientMachines": "Quản lý máy client",
+    "Permission:ClientMachines.Create": "Thêm mới máy client",
+    "Permission:ClientMachines.Edit": "Cập nhật máy client",
+    "Permission:ClientMachines.Delete": "Xóa máy client",
+
+    "Permission:ToolGroup": "Tools",
+    "Permission:Tools": "Quản lý tool",
+    "Permission:Tools.Create": "Thêm mới tool",
+    "Permission:Tools.Edit": "Cập nhật tool",
+    "Permission:Tools.Delete": "Xóa tool",
+    "Permission:Tools.TurnOn": "Bât tool",
+    "Permission:Tools.TurnOff": "Tắt tool",
+
+    "Create": "Thêm mới",
+    "Command": "Command",
+    "Save": "Lưu",
+    "Cancel": "Hủy bỏ",
+
+    "ScriptList": "Danh sách script",
+    "ID": "ID",
+    "NameScript": "Tên script",
+    "Dependencies": "Script phụ thuộc",
+    "Create a new script": "Thêm mới một script",
+    "UpdateScript": "Cập nhật script - {0}",
+    "Content": "Nội dung",
+
+    "ClientMachineList": "Danh sách máy client",
+    "Result": "Kết quả",
+    "Client": "Máy client",
+    "IPLan": "IP LAN",
+    "IPPublic": "IP Public",
+    "Status": "Trạng thái",
+    "LastUpdate": "Cập nhật",
+    "CPU": "CPU",
+    "Memory": "Memory",
+
+    "ToolList": "Danh sách ứng dụng",
+    "NameTool": "Tên ứng dụng",
+    "AppId": "App ID",
+    "Version": "Phiên bản",
+    "ToolStatus": "Trạng thái",
+    "ClientName": "Máy client",
+    "ExeFilePath": "Đường dẫn file .exe",
+    "ProcessId": "Process ID",
+
+    "Welcome": "Chào mừng bạn",
+    "LongWelcomeMessage": "Chào mừng bạn đến ứng dụng. Đây là một dự án khởi nghiệp dựa trên khung ABP. Để biết thêm thông tin, hãy truy cập abp.io.",
+    "DeleteConfirm": "Bạn có chắc chắn muốn xóa bản ghi này?",
+
+    "UpdateSuccessfully": "Cập nhật thành công!",
+    "SuccessfullyDeleted": "Xóa thành công!",
+
+    "CommentWritingRule": "Quy tắc viết comment mô tả cho hàm",
+    "Descriptions": "Mô tả khái quát",
+    "Parameters": "Tham số",
+    "Returns": "Giá trị trả về",
+    "ClearCodeMirror": "Xóa CodeMirror",
+    "ClearResult": "Xóa Tab kết quả",
+    "ShowComment": "Xem comment",
+
+    "HasDependency": "Không thể xóa script, do có script khác phụ thuộc!",
+    "HasTool": "Không thể xóa máy client, do có ứng dụng khác phụ thuộc!",
+    "RequiredSelectClient": "Yêu cầu chọn máy client!",
+    "RequiredInputContent": "Yêu cầu nhập nộ dung script!",
+
+    "ClientOffline": "Máy client đang ngoại tuyến!",
+
+    "TurnOnToolSuccess": "Bật thành công!",
+    "TurnOffToolSuccess": "Tắt thành công!",
+
+    "ToolActive": "Ứng dụng hoạt động",
+    "ToolInactive": "Ứng dụng ngừng hoạt động",
+    "Total": "Tổng số",
+    "ClientStatus": "Trạng thái"
+  }
+}

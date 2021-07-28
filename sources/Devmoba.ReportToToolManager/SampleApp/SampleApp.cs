@@ -10,7 +10,8 @@ namespace SampleApp
 {
     public partial class SampleApp : Form
     {
-        private const string ServerAddress = "https://toolmgr.devmoba.com/";
+        //private const string ServerAddress = "https://toolmgr.devmoba.com/";
+        private const string ServerAddress = "https://localhost:44308/";
         private const int SleepInterval = 180000;
         private readonly BackgroundWorker _worker;
         private readonly ReportTool _report;

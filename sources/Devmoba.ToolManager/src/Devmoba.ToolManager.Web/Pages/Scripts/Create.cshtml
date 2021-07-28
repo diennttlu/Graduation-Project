@@ -1,0 +1,124 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Devmoba.ToolManager.Localization
+@model Devmoba.ToolManager.Web.Pages.Scripts.CreateModel
+@inject IHtmlLocalizer<ToolManagerResource> L
+@{
+    ViewData["Title"] = @L["Create a new script"];
+}
+@section styles {
+    @*<abp-style src="/Pages/RunScripts/slidenav.css" />*@
+    <abp-style src="/Pages/Scripts/css/create-edit.css" />
+    <abp-style-bundle name="code-mirror" />
+}
+
+@section scripts {
+    <script>
+         var allScripts = @Html.Raw(ViewData["allScripts"]);
+    </script>
+    <abp-script-bundle name="knockout" />
+    <abp-script-bundle name="code-mirror" />
+    <abp-script src="/Pages/Scripts/js/host-types.js" />
+    <abp-script src="/Pages/Scripts/js/createScriptViewModel.js" />
+    <abp-script src="/Pages/Scripts/js/create.js" />
+    
+}
+
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <h4>@L["Create a new script"]</h4>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body class="create-script-form">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group border-0 card text-center text-md-left custom-scroll" id="sidebar">
+                    <div class="list-group-item"><h5>@L["ScriptList"]</h5></div>
+                    <!-- ko foreach: scriptSelections -->
+                    <div class="list-group-item">
+                        <div class="card">
+                            <div class="card-header" data-bind="attr: { id: `heading_${$index()}` }">
+                                <label class="lb-checkbox">
+                                    <input name="script" type="checkbox" data-bind="value: id" />&nbsp;
+                                    <span" data-bind="text: `S${id} - ${name}`"></span">
+                                </label>
+                                <button class="btn btn-show-comment float-right" data-toggle="collapse" data-bind="attr: { 'data-target': `#collapse_${$index()}` }" data-parent="#sidebar" title="@L["ShowComment"]">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div data-bind="html: comment, attr: { id: `collapse_${$index()}` }" class="card-body collapse custom-scroll" data-parent="#sidebar"></div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h6>@L["NameScript"]</h6>
+                        <input type="text" name="Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h6>@L["Content"]</h6>
+                        <div class="row">
+                            <div class="col-md-12"><textarea id="content" name="Content" rows="12" class="form-control"></textarea></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button id="btn-create-submit" class="btn btn-dark">@L["Save"]</button>
+                                <a href="/Scripts" class="btn btn-outline-dark">@L["Cancel"]</a>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="btn-clear-content" class="btn btn-outline-dark btn-sm float-right" title="@L["ClearCodeMirror"]"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6>@L["Host types"]</h6>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 370px;">Using</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- ko foreach: hostTypes -->
+                                        <tr>
+                                            <td data-bind="text: using"></td>
+                                            <td data-bind="text: type"></td>
+                                        </tr>
+                                        <!-- /ko -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 comment-rule">
+                                <h6>@L["CommentWritingRule"]</h6>
+                                <p>
+                                    /***<br>
+                                    descriptions: @L["Descriptions"]<br>
+                                    params: @L["Parameters"]<br>
+                                    returns: @L["Returns"]<br>
+                                    ***/<br>
+                                    function FunctionName(param1, param2,...) {<br>
+                                    &emsp;&emsp;// Code...<br>
+                                    }<br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </abp-card-body>
+</abp-card>

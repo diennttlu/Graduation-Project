@@ -1,0 +1,95 @@
+﻿body {
+}
+
+.dashboard-content {
+    padding-top: 30px;
+    padding-left: 30px;
+}
+
+    .dashboard-content .dashboard-title {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #b2b2b2;
+    }
+
+.info-general {
+    box-shadow: 1px 2px 8px 0px #f1f1f1;
+    background-color: #fff;
+    border-radius: 2px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+    .info-general.info-client {
+        border-left: 5px solid #007bff;
+    }
+
+    .info-general.info-tool {
+        border-left: 5px solid #6200ea;
+    }
+
+    .info-general .ic {
+        text-align: center;
+    }
+
+        .info-general .ic.ic-client i {
+            background-color: #007bff;
+        }
+
+        .info-general .ic.ic-tool i {
+            background-color: #6200ea;
+        }
+
+        .info-general .ic i {
+            padding: 14px 16px;
+            font-size: 39px;
+            border-radius: 50%;
+            border: 1px solid;
+            color: #fff;
+            margin-top: 9px;
+        }
+
+    .info-general .ic-tool h5 {
+        color: #6200ea;
+    }
+
+    .info-general .ic-client h5 {
+        color: #007bff;
+    }
+    .info-general .font-client h4, .info-general .font-tool h4 {
+        color: #828282;
+    }
+
+    .info-general h1 {
+        text-align: center;
+    }
+
+    .info-general .font-client h4, .info-general .font-tool h4 {
+        padding: 8px 0px 0px 0px;
+        text-align: center;
+        /*text-transform: uppercase;*/
+        font-size: 1.2rem;
+    }
+
+    .info-general .font-client h1, .info-general .font-tool h1 {
+        font-size: 2.7rem;
+    }
+
+/*.info-table {
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 1px 2px 8px 0px #f1f1f1;
+    background: #fff;
+}*/
+
+
+@media (min-width: 768px) {
+    /*.col-md-12 {
+        margin-bottom: 20px;
+    }*/
+}
+
+@media (max-width: 768px) {
+    .col-sm-12 {
+        margin-bottom: 20px;
+    }
+}

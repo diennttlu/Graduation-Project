@@ -1,0 +1,130 @@
+﻿@page
+@model Devmoba.ToolManager.Web.Pages.RunScripts.IndexModel
+@using Volo.Abp.AspNetCore.Mvc.UI.Packages.SignalR
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Devmoba.ToolManager.Localization
+@inject IHtmlLocalizer<ToolManagerResource> L
+@{
+    ViewData["Title"] = "Run Script";
+}
+@section styles {
+    <abp-style src="/Pages/RunScripts/index.css" />
+    @*<abp-style src="/Pages/RunScripts/slidenav.css" />*@
+    <abp-style-bundle name="code-mirror" />
+}
+
+@section scripts {
+    <script>
+        var allScripts = @Html.Raw(ViewData["allScripts"]);
+        var clientUserNames = @Html.Raw(ViewData["clientUserNames"]);
+    </script>
+    <abp-script-bundle name="knockout" />
+    <abp-script type="typeof(SignalRBrowserScriptContributor)" />
+    <abp-script src="/Pages/RunScripts/exchangeClientViewModel.js" />
+    <abp-script src="/Pages/RunScripts/index.js" />
+    <abp-script-bundle name="code-mirror" />
+}
+
+<div class="container-fluid">
+    <div class="row flex-nowrap wapper">
+        <div class="col-md-3">
+            <div class="list-group border-0 card text-center text-md-left custom-scroll" id="sidebar">
+                <div class="list-group-item"><h6>@L["ScriptList"]</h6></div>
+                <!-- ko foreach: scriptSelections -->
+                <div class="list-group-item">
+                    <div class="card">
+                        <div class="card-header" data-bind="attr: { id: `heading_${$index()}` }">
+                            <label class="lb-checkbox">
+                                <input name="script" type="checkbox" data-bind="value: id" />&nbsp;
+                                <span data-bind="text: `S${id} - ${name}`"></span>
+                            </label>
+                            <button class="btn float-right " data-toggle="collapse" data-bind="attr: { 'data-target': `#collapse_${$index()}` }" data-parent="#sidebar" title="@L["ShowComment"]">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-outline-success btn-run-script btn-play btn-sm float-right" title="@L["Run"]">
+                                <i class="fa fa-play" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div data-bind="html: comment, attr: { id: `collapse_${$index()}` }" class="card-body collapse custom-scroll" data-parent="#sidebar"></div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+        <div class="col-md-9 px-5 pl-md-2 pt-2">
+            <div class="row">
+                @*<div class="col-md-1">
+                        <a href="#" data-target=".sidebar" data-toggle="collapse" style="color: #212529;" class="navicon-a"><i class="fa fa-navicon fa-lg py-2 p-1"></i></a>
+                    </div>*@
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <h6 class="col-md-3">@L["ClientMachineList"]</h6>
+                    </div>
+                    <div class="row" data-bind="foreach: clients">
+                        <div class="col-md-2">
+                            <label class="lb-checkbox">
+                                <input name="client" type="checkbox" data-bind="value: username, checked: hasChecked, event: { change: $parent.checkedClientEvent }, attr: {id: `client_${username}`, class: `client`}" />
+                                &nbsp;<span data-bind="text: username"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <h6 class="col-md-6">@L["Content"]</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea id="content" rows="12" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button id="btn-send" class="btn btn-outline-success btn-sm btn-play" title="@L["Run"]">
+                                <i class="fa fa-play" aria-hidden="true"></i>
+                            </button>
+                            <button id="btn-clear" class="btn btn-outline-dark btn-sm">
+                                <i class="fa fa-eraser" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <h6 class="col-md-6">@L["Result"]</h6>
+                    </div>
+                    <div class="row" style="border-top:1px solid #828282">
+                        <ul id="tab-list" class="nav nav-tabs col-md-11" role="tablist" data-bind="foreach: tabClients">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#tab_1" role="tab" data-toggle="tab" data-bind="text: username, attr: { href: `#tab_${$index()}` }, css: { active: $index() == 0 }"></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="row">
+                        <div id="tab-content" class="col-md-12 tab-content tab-console custom-scroll form-control" data-bind="foreach: tabClients">
+                            <div role="tabpanel" class="tab-pane fade row" id="tab_1" data-bind="attr: { id: `tab_${$index()}` }, css: { show: $index() == 0, active: $index() == 0 }">
+                                <div class="col-md-12">
+                                    <div class="row console-content" data-bind="attr: { id: `result_${replacePoint}` }">
+                                        <div />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button id="btn-clear-console" class="btn btn-outline-dark btn-sm float-right" title="@L["ClearResult"]">
+                            <i class="fa fa-eraser" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

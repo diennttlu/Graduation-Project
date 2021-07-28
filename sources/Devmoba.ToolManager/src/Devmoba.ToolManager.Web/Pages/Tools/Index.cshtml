@@ -1,0 +1,61 @@
+﻿@page
+@model Devmoba.ToolManager.Web.Pages.Tools.IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Devmoba.ToolManager.Localization
+@using Microsoft.AspNetCore.Authorization
+@using Volo.Abp.AspNetCore.Mvc.UI.Packages.SignalR
+@inject IHtmlLocalizer<ToolManagerResource> L
+@{
+    ViewData["Title"] = @L["ToolList"];
+}
+@section scripts{
+    <script>
+        var allToolStatus = @Html.Raw(ViewData["allToolStatus"]);
+        var allClientMachines = @Html.Raw(ViewData["allClientMachines"]);
+    </script>
+    <abp-script-bundle name="knockout" />
+    <abp-script type="typeof(SignalRBrowserScriptContributor)" />
+    <abp-script-bundle name="chosen" />
+    <abp-script src="/Pages/Tools/index.js" />
+}
+
+@section styles{
+    <abp-style-bundle name="chosen" />
+    <abp-style src="/Pages/Tools/index.css" />
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <h4>@L["ToolList"]</h4>
+            </abp-column>
+            @*<abp-column size-md="_6">
+               <button id="btnRefreshTable" class="btn btn-dark float-right">@L["Refresh"]</button>
+            </abp-column>*@
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-row>
+            <abp-column id="message-error" size-md="_6"></abp-column>
+        </abp-row>
+        <abp-table striped-rows="true" id="toolTable" class="table-bordered">
+            <thead>
+                <tr>
+                    <th>@L["ID"]</th>
+                    <th>@L["Name"]</th>
+                    <th>@L["AppId"]</th>
+                    <th>@L["Version"]</th>
+                    <th>@L["ClientName"]</th>
+                    <th>@L["ToolStatus"]</th>
+                    <th>@L["LastUpdate"]</th>
+                    <th>@L["ProcessId"]</th>
+                    <th>@L["ExeFilePath"]</th>
+                    <th>@L["Command"]</th>
+                </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>
+
+

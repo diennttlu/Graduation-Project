@@ -1,0 +1,30 @@
+﻿body {
+}
+/*create script form*/
+
+.create-script-form .row {
+    margin-bottom: 10px;
+}
+
+.CodeMirror.cm-s-monokai {
+    height: 600px;
+}
+
+.card-body.collapse {
+    height: auto;
+    max-height: 270px;
+    overflow-y: scroll;
+}
+
+#sidebar {
+    height: 850px;
+    overflow-y: scroll;
+}
+
+.comment-rule {
+    padding-top: 30px;
+}
+
+    .comment-rule p {
+        padding: 0px 0px 0px 20px;
+    }

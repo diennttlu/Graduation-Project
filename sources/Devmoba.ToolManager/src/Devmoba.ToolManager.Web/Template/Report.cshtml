@@ -1,0 +1,38 @@
+﻿@model List<Devmoba.ToolManager.ClientMachines.ClientMachineReportEmailDto>;
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>ID máy client</th>
+            <th>IP Lan</th>
+            <th>IP Public</th>
+            <th>Tool ngừng hoạt động</th>
+            <th>Tổng số tool</th>
+        </tr>
+        @foreach (var report in Model)
+        {
+            <tr>
+                <td>@report.Id</td>
+                <td>@report.IPLan</td>
+                <td>@report.IPPublic</td>
+                <td>@report.ToolInactives.Count</td>
+                <td>@report.TotalTool</td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

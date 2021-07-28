@@ -1,0 +1,48 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Devmoba.ToolManager.Localization
+@using Microsoft.AspNetCore.Authorization
+@using Devmoba.ToolManager.Permissions
+@model Devmoba.ToolManager.Web.Pages.Scripts.IndexModel
+@inject IHtmlLocalizer<ToolManagerResource> L
+@inject IAuthorizationService AuthorizationService
+@{
+    ViewData["Title"] = @L["ScriptList"];
+}
+@section scripts{
+    <abp-script src="/Pages/Scripts/js/index.js" />
+}
+
+@section styles {
+    <abp-style src="/Pages/Scripts/css/index.css" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <h4>@L["ScriptList"]</h4>
+            </abp-column>
+            <abp-column size-md="_6">
+                @if (await AuthorizationService.IsGrantedAsync(ToolManagerPermissions.Scripts.Create))
+                {
+                    <a href="/Scripts/Create" class="btn btn-dark float-right" title="@L["Create"].Value">
+                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;@L["Create"].Value
+                    </a>
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="scriptTable" class="table-bordered">
+            <thead>
+                <tr>
+                    <th>@L["ID"]</th>
+                    <th>@L["NameScript"]</th>
+                    <th>@L["Dependencies"]</th>
+                    <th>@L["Command"]</th>
+                </tr>
+            </thead>
+        </abp-table>
+    </abp-card-body>
+</abp-card>
+
