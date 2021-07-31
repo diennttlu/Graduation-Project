@@ -121,7 +121,15 @@ namespace Devmoba.ToolManager.Tools
 
         public async Task<ToolDto> CreateOrUpdateAsync(CreateUpdateToolDto input)
         {
-            var tool = await AsyncExecuter.FirstOrDefaultAsync(Repository.Where(x => x.AppId == input.AppId));
+            var tool = await AsyncExecuter
+                .FirstOrDefaultAsync(Repository
+                .WithDetails(x => x.ClientMachine)
+                .Where(x => x.AppId == input.AppId &&
+                    x.ClientMachine.IPLan == input.IPLan &&
+                    x.ClientMachine.IPPublic == input.IPPublic));
+            //var tool = await AsyncExecuter
+            //    .FirstOrDefaultAsync(Repository
+            //    .Where(x => x.AppId == input.AppId));
             if (tool != null)
             {
                 tool.Name = input.Name;
@@ -132,6 +140,7 @@ namespace Devmoba.ToolManager.Tools
                 tool.SentMail = false;
                 var toolDto = ObjectMapper.Map<Tool, ToolDto>(tool);
                 toolDto.ToolStatus = ToolStatus.Active;
+                toolDto.ClientMachine = null;
                 await _exchangeHub.Clients.All.ReceiveFromTool(toolDto);
             } 
             else
