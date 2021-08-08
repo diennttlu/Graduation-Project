@@ -10,8 +10,8 @@ namespace TestReport
 {
     public partial class TestReport : Form
     {
-        //private const string ServerAddress = "https://toolmgr.devmoba.com/";
-        private const string ServerAddress = "https://localhost:44308/";
+        private const string ServerAddress = "https://toolmgr.devmoba.com/";
+        //private const string ServerAddress = "https://localhost:44308/";
         private const int Interval = 180000;
         private readonly BackgroundWorker _worker;
         private readonly ReportTool _report;
