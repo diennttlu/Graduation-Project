@@ -1,4 +1,4 @@
-﻿using Devmoba.ReportToToolManager;
+﻿using ReportToolManager.NetCore;
 using SampleApp.Shareds;
 using System;
 using System.ComponentModel;
@@ -10,8 +10,8 @@ namespace SampleApp
 {
     public partial class SampleApp : Form
     {
-        //private const string ServerAddress = "https://toolmgr.devmoba.com/";
-        private const string ServerAddress = "https://localhost:44308/";
+        //private const string ServerAddress = "https://toolmgr.devmoba.com";
+        private const string ServerAddress = "https://localhost:44308";
         private const int SleepInterval = 180000;
         private readonly BackgroundWorker _worker;
         private readonly ReportTool _report;
@@ -32,34 +32,32 @@ namespace SampleApp
             _worker.RunWorkerAsync();
         }
 
-        private void _worker_DoWork(object sender, DoWorkEventArgs e)
+        private async void _worker_DoWork(object sender, DoWorkEventArgs e)
         {
             Thread.Sleep(SleepInterval);
             try
             {
-                CallReport();
+                await CallReportAsync();
             }
             catch (Exception) {}
         }
 
-        private void SampleApp_Load(object sender, System.EventArgs e)
+        private async void SampleApp_Load(object sender, System.EventArgs e)
         {
             try
             {
-                CallReport();
+                await CallReportAsync();
                 _worker.RunWorkerAsync();
             }
             catch (Exception) { }
         }
 
-        private void CallReport()
+        private async Task CallReportAsync()
         {
-            _report.Report(
+            await _report.ReportAsync(
                    CommonMethod.GetAppName(),
                    CommonMethod.GetAppId().Value,
-                   CommonMethod.GetAppVersion(),
-                   CommonMethod.GetExeFilePath(),
-                   CommonMethod.GetProcessId());
+                   CommonMethod.GetAppVersion());
         }
 
     }

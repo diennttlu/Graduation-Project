@@ -121,45 +121,50 @@ namespace Devmoba.ToolManager.Tools
 
         public async Task<ToolDto> CreateOrUpdateAsync(CreateUpdateToolDto input)
         {
-            var tool = await AsyncExecuter
+            try
+            {
+                var tool = await AsyncExecuter
                 .FirstOrDefaultAsync(Repository
                 .WithDetails(x => x.ClientMachine)
                 .Where(x => x.AppId == input.AppId &&
                     x.ClientMachine.IPLan == input.IPLan &&
                     x.ClientMachine.IPPublic == input.IPPublic));
-            //var tool = await AsyncExecuter
-            //    .FirstOrDefaultAsync(Repository
-            //    .Where(x => x.AppId == input.AppId));
-            if (tool != null)
-            {
-                tool.Name = input.Name;
-                tool.Version = input.Version;
-                tool.ExeFilePath = input.ExeFilePath;
-                tool.LastUpdate = input.LastUpdate;
-                tool.ProcessId = input.ProcessId;
-                tool.SentMail = false;
-                var toolDto = ObjectMapper.Map<Tool, ToolDto>(tool);
-                toolDto.ToolStatus = ToolStatus.Active;
-                toolDto.ClientMachine = null;
-                await _exchangeHub.Clients.All.ReceiveFromTool(toolDto);
-            } 
-            else
-            {
-                var clientMachine = await AsyncExecuter.FirstOrDefaultAsync(_clientMachineRepository
-                    .Where(x => x.IPLan == input.IPLan && 
-                        x.IPPublic == input.IPPublic && 
-                        x.LastUpdate >= DateTime.UtcNow.AddSeconds(-_clientInterval)));
-                if (clientMachine != null)
-                {
-                    var toolMapper = ObjectMapper.Map<CreateUpdateToolDto, Tool>(input);
-                    toolMapper.ClientId = clientMachine.Id;
-                    toolMapper.SentMail = false;
-                    tool = await Repository.InsertAsync(toolMapper, autoSave: true);
-                    await _exchangeHub.Clients.All.ReloadToolTable();
-                }
-            }
 
-            return ObjectMapper.Map<Tool, ToolDto>(tool);
+                if (tool != null)
+                {
+                    tool.Name = input.Name;
+                    tool.Version = input.Version;
+                    tool.ExeFilePath = input.ExeFilePath;
+                    tool.LastUpdate = input.LastUpdate;
+                    tool.ProcessId = input.ProcessId;
+                    tool.SentMail = false;
+                    var toolDto = ObjectMapper.Map<Tool, ToolDto>(tool);
+                    toolDto.ToolStatus = ToolStatus.Active;
+                    toolDto.ClientMachine = null;
+                    await _exchangeHub.Clients.All.ReceiveFromTool(toolDto);
+                }
+                else
+                {
+                    var clientMachine = await AsyncExecuter.FirstOrDefaultAsync(_clientMachineRepository
+                        .Where(x => x.IPLan == input.IPLan &&
+                            x.IPPublic == input.IPPublic &&
+                            x.LastUpdate >= DateTime.UtcNow.AddSeconds(-_clientInterval)));
+                    if (clientMachine != null)
+                    {
+                        var toolMapper = ObjectMapper.Map<CreateUpdateToolDto, Tool>(input);
+                        toolMapper.ClientId = clientMachine.Id;
+                        toolMapper.SentMail = false;
+                        tool = await Repository.InsertAsync(toolMapper, autoSave: true);
+                        await _exchangeHub.Clients.All.ReloadToolTable();
+                    }
+                }
+
+                return ObjectMapper.Map<Tool, ToolDto>(tool);
+            }
+            catch (Exception ex)
+            {
+                throw new UserFriendlyException(ex.Message);
+            }
         }
 
         [Authorize(ToolManagerPermissions.Tools.Delete)]

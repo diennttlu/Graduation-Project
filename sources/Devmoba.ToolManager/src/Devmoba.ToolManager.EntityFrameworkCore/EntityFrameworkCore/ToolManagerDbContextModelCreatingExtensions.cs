@@ -28,7 +28,7 @@ namespace Devmoba.ToolManager.EntityFrameworkCore
             {
                 e.ToTable(ToolManagerConsts.DbTablePrefix + "Tools", ToolManagerConsts.DbSchema);
                 e.ConfigureByConvention();
-                e.HasIndex(x => x.AppId).IsUnique();
+                e.HasIndex(x => new { x.AppId, x.ClientId }).IsUnique();
 
                 e.Property(x => x.Name).IsRequired().HasMaxLength(256);
                 e.Property(x => x.AppId).IsRequired();

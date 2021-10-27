@@ -4,15 +4,17 @@ using Devmoba.ToolManager.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
 namespace Devmoba.ToolManager.Migrations
 {
     [DbContext(typeof(ToolManagerMigrationsDbContext))]
-    partial class ToolManagerMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211027031242_Edit_Unique_Tool_Table")]
+    partial class Edit_Unique_Tool_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

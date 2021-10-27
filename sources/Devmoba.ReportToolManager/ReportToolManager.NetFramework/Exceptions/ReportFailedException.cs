@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Devmoba.ReportToToolManager.Exceptions
+namespace ReportToolManager.NetFramework.Exceptions
 {
     public class ReportFailedException : Exception
     {

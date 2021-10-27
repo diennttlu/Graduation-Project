@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Devmoba.ReportToToolManager\Devmoba.ReportToToolManager.csproj" />
+    <ProjectReference Include="..\ReportToolManager.NetCore\ReportToolManager.NetCore.csproj" />
   </ItemGroup>
 
 </Project>
