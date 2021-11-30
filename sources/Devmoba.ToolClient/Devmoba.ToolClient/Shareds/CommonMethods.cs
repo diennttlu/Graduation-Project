@@ -32,5 +32,10 @@ namespace Devmoba.ToolClient.Shareds
             var memoryUsage = new PerformanceCounter("Memory", "% Committed Bytes In Use", string.Empty);
             return Math.Round(memoryUsage.NextValue(), 2);
         }
+
+        public static string GetExeFilePath()
+        {
+            return Process.GetCurrentProcess().MainModule.FileName;
+        }
     }
 }

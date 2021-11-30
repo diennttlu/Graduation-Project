@@ -54,7 +54,7 @@ namespace Devmoba.ToolManager.Controllers
         }
 
         [RemoteService(IsEnabled = false)]
-        public Task<ToolDto> UpdateAsync(long id, DateTime? lastUpdate, bool SentMail)
+        public Task<ToolDto> UpdateStateAsync(long id, DateTime? lastUpdate, ProcessState processState, bool SentMail)
         {
             throw new NotImplementedException();
         }
@@ -83,6 +83,18 @@ namespace Devmoba.ToolManager.Controllers
                 });
             }
            
+        }
+
+        [RemoteService(IsEnabled = false)]
+        public Task UpdateProcessesAsync(List<ToolProcessDto> input)
+        {
+            throw new NotImplementedException();
+        }
+
+        [RemoteService(IsEnabled = false)]
+        public Task<List<ToolProcessDto>> GetToolProcessesAsync(long clientMachineId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -28,6 +28,9 @@ namespace Devmoba.ToolManager.Tools
         public int ProcessId { get; set; }
 
         [Required]
+        public ProcessState ProcessState { get; set; }
+
+        [Required]
         [DataType(DataType.DateTime)]
         public DateTime LastUpdate { get; set; } = DateTime.UtcNow;
 

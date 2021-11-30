@@ -18,6 +18,8 @@ namespace Devmoba.ToolManager.Tools
 
         public int ProcessId { get; set; }
 
+        public ProcessState ProcessState { get; set; }
+
         public DateTime LastUpdate { get; set; }
 
         public bool SentMail { get; set; }

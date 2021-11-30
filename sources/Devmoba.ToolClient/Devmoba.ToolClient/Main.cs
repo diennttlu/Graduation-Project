@@ -34,6 +34,7 @@ namespace Devmoba.ToolClient
         private readonly BackgroundWorker _worker;
         private Logger _logger;
         private int _interval;
+        private long _timestamp;
 
         public Main(string client, CookieContainer cookieContainer)
         {
@@ -41,6 +42,7 @@ namespace Devmoba.ToolClient
             InitializeComponent();
             this.ActiveControl = label1;
             _interval = GetInterval();
+            _timestamp = 0;
             _serverUrl = ConfigurationManager.AppSettings[Constants.ServerUrl];
             _client = client;
             _cookieContainer = cookieContainer;
@@ -150,7 +152,7 @@ namespace Devmoba.ToolClient
         }
 
         #endregion
-      
+
         private void SetConnection()
         {
             _connection = new HubConnectionBuilder()
@@ -193,7 +195,8 @@ namespace Devmoba.ToolClient
 
             _connection.On<object>("ReceiveError", (obj) => { });
 
-            _connection.On<string, string>("TurnOnTool", async (connectionId, exeFilePath) =>
+            #region Turn On/Off 
+            _connection.On<string, long, string>("TurnOnTool", async (connectionId, toolId, exeFilePath) =>
             {
                 var message = string.Empty;
                 var isSuccess = true;
@@ -214,7 +217,7 @@ namespace Devmoba.ToolClient
                 await _connection.InvokeAsync("ReportTurnOn", new ReportMessage()
                 {
                     ConnectionId = connectionId,
-                    ToolId = null,
+                    ToolId = toolId,
                     IsSuccess = isSuccess,
                     ErrorMessage = message
                 });
@@ -233,7 +236,7 @@ namespace Devmoba.ToolClient
                     {
                         process.Kill();
                         _logger.Debug($"Process kill - processId: {processId}");
-                    } 
+                    }
                     else
                     {
                         message = $"There is a problem that the application has stopped working. ProcessId {processId} has exited";
@@ -255,6 +258,38 @@ namespace Devmoba.ToolClient
                     ErrorMessage = message
                 });
             });
+            #endregion
+
+            #region Handle Process
+
+            _connection.On<long>("ReceiveTimestamp", async (timestamp) =>
+            {
+                if (_timestamp != timestamp)
+                {
+                    _timestamp = timestamp;
+                    await _connection.InvokeAsync("GetToolProcess");
+                }
+            });
+
+            _connection.On<List<ToolProcess>>("ReceiveToolProcesses", async (toolProcesses) =>
+            {
+
+                foreach (var toolProcess in toolProcesses)
+                {
+                    var processes = Process.GetProcessesByName(toolProcess.Name);
+                    if (processes.Length > 0)
+                    {
+                        toolProcess.ProcessState = ProcessState.Started;
+                    } 
+                    else
+                    {
+                        toolProcess.ProcessState = ProcessState.Killed;
+                    }
+                }
+                await _connection.InvokeAsync("UpdateProcessState", toolProcesses);
+            });
+
+            #endregion
         }
 
         private List<string> ExecuteMainScript(MainScript mainScript)
@@ -272,7 +307,7 @@ namespace Devmoba.ToolClient
                 engine.AddHostType("Process", typeof(Process));
                 engine.AddHostType("WebClient", typeof(WebClient));
                 engine.AddHostType("Uri", typeof(Uri));
-                
+
                 //engine.AddHostType("object", typeof(object));
 
                 try

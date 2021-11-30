@@ -21,5 +21,8 @@ namespace Devmoba.ToolManager.ClientMachines
 
         [Required]
         public Guid UserId { get; set; }
+
+        [Required]
+        public long Timestamp { get; set; }
     }
 }

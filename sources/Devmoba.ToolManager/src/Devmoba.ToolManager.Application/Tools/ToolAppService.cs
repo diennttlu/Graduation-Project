@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
@@ -104,6 +105,7 @@ namespace Devmoba.ToolManager.Tools
                 ClientId = x.tool.ClientId,
                 ExeFilePath = x.tool.ExeFilePath,
                 ProcessId = x.tool.ProcessId,
+                ProcessState = x.tool.ProcessState,
                 LastUpdate = x.tool.LastUpdate,
                 ToolStatus = x.tool.LastUpdate >= timeDetermine ? ToolStatus.Active : ToolStatus.InActive,
                 Username = x.user.UserName,
@@ -137,7 +139,11 @@ namespace Devmoba.ToolManager.Tools
                     tool.ExeFilePath = input.ExeFilePath;
                     tool.LastUpdate = input.LastUpdate;
                     tool.ProcessId = input.ProcessId;
+                    tool.ProcessState = ProcessState.Started;
                     tool.SentMail = false;
+                    tool.ClientMachine.Timestamp = CommonMethod.GetTimestamp();
+                    tool = await Repository.UpdateAsync(tool, autoSave: true);
+
                     var toolDto = ObjectMapper.Map<Tool, ToolDto>(tool);
                     toolDto.ToolStatus = ToolStatus.Active;
                     toolDto.ClientMachine = null;
@@ -151,7 +157,11 @@ namespace Devmoba.ToolManager.Tools
                             x.LastUpdate >= DateTime.UtcNow.AddSeconds(-_clientInterval)));
                     if (clientMachine != null)
                     {
+                        clientMachine.Timestamp = CommonMethod.GetTimestamp();
+                        await _clientMachineRepository.UpdateAsync(clientMachine, autoSave: true);
+                        
                         var toolMapper = ObjectMapper.Map<CreateUpdateToolDto, Tool>(input);
+                        toolMapper.ProcessState = ProcessState.Started;
                         toolMapper.ClientId = clientMachine.Id;
                         toolMapper.SentMail = false;
                         tool = await Repository.InsertAsync(toolMapper, autoSave: true);
@@ -174,7 +184,7 @@ namespace Devmoba.ToolManager.Tools
         }
 
         //[Authorize(ToolManagerPermissions.Tools.Edit)]
-        public async Task<ToolDto> UpdateAsync(long id, DateTime? lastUpdate, bool SentMail)
+        public async Task<ToolDto> UpdateStateAsync(long id, DateTime? lastUpdate, ProcessState processState, bool SentMail)
         {
             var query = Repository.Where(x => x.Id == id);
             var tool = await AsyncExecuter.FirstOrDefaultAsync(query);
@@ -182,7 +192,10 @@ namespace Devmoba.ToolManager.Tools
             {
                 tool.LastUpdate = lastUpdate.Value;
             }
+            tool.ProcessState = processState;
             tool.SentMail = SentMail;
+            tool = await Repository.UpdateAsync(tool, autoSave: true);
+
             return ObjectMapper.Map<Tool, ToolDto>(tool);
         }
 
@@ -195,6 +208,18 @@ namespace Devmoba.ToolManager.Tools
                 InactiveNumber = lastUpdates.Count(x => x < DateTime.UtcNow.AddMinutes(-_toolInterval)),
             };
             return report;
+        }
+
+        public async Task UpdateProcessesAsync(List<ToolProcessDto> input)
+        {
+            var tool = ObjectMapper.Map<List<ToolProcessDto>, List<Tool>>(input);
+            await Repository.BulkUpdateAsync(tool, 0);
+        }
+
+        public async Task<List<ToolProcessDto>> GetToolProcessesAsync(long clientMachineId)
+        {
+            var tool = await AsyncExecuter.ToListAsync(Repository.Where(x => x.ClientId == clientMachineId));
+            return ObjectMapper.Map<List<Tool>, List<ToolProcessDto>>(tool);
         }
     }
 }

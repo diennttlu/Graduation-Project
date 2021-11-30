@@ -150,12 +150,14 @@ namespace Devmoba.ToolManager.HubConnections
                     IPLan = ipLan,
                     IPPublic = ipPublic,
                     LastUpdate = DateTime.UtcNow,
-                    UserId = CurrentUser.Id.Value,
+                    UserId = CurrentUser.Id.Value
                 };
 
                 if (clientMachine != null)
                 {
+                    createUpdateClientMachie.Timestamp = clientMachine.Timestamp;
                     await _clientMachineAppService.UpdateAsync(clientMachine.Id, createUpdateClientMachie);
+
                     await Clients.All.ReceiveClientInfo(new
                     {
                         connectionStatus = true,
@@ -170,9 +172,13 @@ namespace Devmoba.ToolManager.HubConnections
                 }
                 else
                 {
-                    await _clientMachineAppService.CreateAsync(createUpdateClientMachie);
+                    //createUpdateClientMachie.Timestamp = CommonMethod.GetTimestamp();
+                    clientMachine = await _clientMachineAppService.CreateAsync(createUpdateClientMachie);
                     await Clients.All.ReloadClientTable();
                 }
+
+                var connections = _connections.GetConnections(CurrentUser.UserName).ToList();
+                await Clients.Clients(connections).ReceiveTimestamp(clientMachine.Timestamp);
             }
             catch (Exception ex)
             {
@@ -180,7 +186,22 @@ namespace Devmoba.ToolManager.HubConnections
                 await Clients.All.ReceiveError(new { message = message });
             }
         }
+        #endregion
 
+        #region Process Handle
+
+        public async Task GetToolProcess()
+        {
+            var clientMachine = await _clientMachineAppService.GetByUserIdAsync(CurrentUser.Id.Value);
+            var tools = await _toolAppService.GetToolProcessesAsync(clientMachine.Id);
+            var connections = _connections.GetConnections(CurrentUser.UserName).ToList();
+            await Clients.Clients(connections).ReceiveToolProcesses(tools);
+        }
+
+        public async Task UpdateProcessState(List<ToolProcessDto> tools)
+        {
+            await _toolAppService.UpdateProcessesAsync(tools);
+        }
         #endregion
 
         #region On/Off tool
@@ -191,7 +212,7 @@ namespace Devmoba.ToolManager.HubConnections
             {
                 var connections = _connections.GetConnections(username).ToList();
                 if (connections.Count > 0)
-                    await Clients.Clients(connections).TurnOnTool(Context.ConnectionId, tool.ExeFilePath);
+                    await Clients.Clients(connections).TurnOnTool(Context.ConnectionId, tool.Id, tool.ExeFilePath);
                 else
                     throw new UserFriendlyException(_stringLocalizer["ClientOffline"]);
             }
@@ -212,11 +233,21 @@ namespace Devmoba.ToolManager.HubConnections
 
         public async Task ReportTurnOn(ReportMessage rm)
         {
+            if (rm.IsSuccess)
+            {
+                await _toolAppService.UpdateStateAsync(
+                    rm.ToolId,
+                    DateTime.UtcNow,
+                    ProcessState.Started,
+                    true
+                );
+            }
             await Clients.Client(rm.ConnectionId).ReceiveFromClient(new
             {
                 sw = SwitchTool.TurnOn,
                 isSuccess = rm.IsSuccess,
-                errorMessage = rm.ErrorMessage
+                errorMessage = rm.ErrorMessage,
+                toolId = rm.ToolId
             });
         }
 
@@ -224,14 +255,19 @@ namespace Devmoba.ToolManager.HubConnections
         {
             if (rm.IsSuccess)
             {
-                await _toolAppService.UpdateAsync(rm.ToolId.Value, DateTime.UtcNow.AddMinutes(-_intervalTool), true);
+                await _toolAppService.UpdateStateAsync(
+                    rm.ToolId,
+                    DateTime.UtcNow.AddMinutes(-_intervalTool),
+                    ProcessState.Killed,
+                    true
+                );
             }
             await Clients.Client(rm.ConnectionId).ReceiveFromClient(new
             {
                 sw = SwitchTool.TurnOff,
                 isSuccess = rm.IsSuccess,
                 errorMessage = rm.ErrorMessage,
-                toolId = rm.ToolId.Value
+                toolId = rm.ToolId
             });
         }
         #endregion
@@ -240,7 +276,7 @@ namespace Devmoba.ToolManager.HubConnections
         {
             public string ConnectionId { get; set; }
 
-            public long? ToolId { get; set; }
+            public long ToolId { get; set; }
 
             public bool IsSuccess { get; set; }
 

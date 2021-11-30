@@ -22,6 +22,8 @@ namespace Devmoba.ToolManager
             CreateMap<CreateUpdateClientMachineDto, ClientMachine>();
 
             CreateMap<Tool, ToolDto>();
+            CreateMap<Tool, ToolProcessDto>();
+            CreateMap<ToolProcessDto, Tool>();
             CreateMap<CreateUpdateToolDto, Tool>();
 
             CreateMap<Dependency, DependencyDto>();

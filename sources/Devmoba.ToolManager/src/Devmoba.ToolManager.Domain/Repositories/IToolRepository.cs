@@ -10,5 +10,7 @@ namespace Devmoba.ToolManager.Repositories
     public interface IToolRepository : IRepository<Tool, long>
     {
         IQueryable<Tool> FullTextSearch(IQueryable<Tool> query, Expression<Func<Tool, string>> keySelector, string value);
+
+        Task BulkUpdateAsync(List<Tool> tools, int batchSize);
     }
 }

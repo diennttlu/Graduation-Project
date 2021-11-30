@@ -15,6 +15,8 @@ namespace Devmoba.ToolManager
 
         public string ExeFilePath { get; set; }
 
+        public ProcessState ProcessState { get; set; }
+
         public int ProcessId { get; set; }
 
         public DateTime LastUpdate { get; set; }

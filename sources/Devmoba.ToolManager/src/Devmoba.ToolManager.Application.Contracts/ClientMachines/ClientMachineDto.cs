@@ -19,6 +19,8 @@ namespace Devmoba.ToolManager.ClientMachines
 
         public string Username { get; set; }
 
+        public long Timestamp { get; set; }
+
         public ICollection<ToolDto> Tools { get; set; }
     }
 }

@@ -14,6 +14,8 @@ namespace Devmoba.ToolManager.Tools
 
         public ToolStatus? ToolStatus { get; set; }
 
+        public ProcessState? ProcessState { get; set; }
+
         public long? ClientId { get; set; }
     }
 }

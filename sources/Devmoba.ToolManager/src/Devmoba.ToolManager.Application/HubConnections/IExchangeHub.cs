@@ -1,4 +1,5 @@
 ﻿using Devmoba.ToolManager.Scripts;
+using Devmoba.ToolManager.Tools;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,7 +25,11 @@ namespace Devmoba.ToolManager.HubConnections
 
         Task ReceiveScriptDependencyIds(List<long> dependencies);
 
-        Task TurnOnTool(string connectionId, string exeFilePath);
+        Task ReceiveTimestamp(long timestamp);
+
+        Task ReceiveToolProcesses(List<ToolProcessDto> tools);
+
+        Task TurnOnTool(string connectionId, long toolId, string exeFilePath);
 
         Task TurnOffTool(string connectionId, long toolId, int processId);
     }

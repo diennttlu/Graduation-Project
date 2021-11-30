@@ -52,20 +52,20 @@ namespace Devmoba.ToolManager.BackgroundWorkers.Workers
         {
             Logger.LogInformation("Start worker: Do something...");
 
-            if (IsSendMailNow(_emailReportInterval))
-            {
-                var reports = await _clientMachineAppService.GetClientMachineReportEmailsAsync();
-                if (reports.Count > 0)
-                {
-                    var identityUserRepository = workerContext.ServiceProvider.GetRequiredService<IIdentityUserRepository>();
-                    var users = await identityUserRepository.GetListByNormalizedRoleNameAsync(CommonContants.RoleNameAdmin);
-                    var toAddress = users.Select(x => MailboxAddress.Parse(x.Email)).ToList();
-                    var reportContent = await GetReportContentAsync(reports);
-                    var subject = $"THÔNG BÁO TOOL NGỪNG HOẠT ĐỘNG";
-                    SendMail(subject, reportContent, toAddress);
-                    await UpdateSendMail(reports);
-                }
-            }
+            //if (IsSendMailNow(_emailReportInterval))
+            //{
+            //    var reports = await _clientMachineAppService.GetClientMachineReportEmailsAsync();
+            //    if (reports.Count > 0)
+            //    {
+            //        var identityUserRepository = workerContext.ServiceProvider.GetRequiredService<IIdentityUserRepository>();
+            //        var users = await identityUserRepository.GetListByNormalizedRoleNameAsync(CommonContants.RoleNameAdmin);
+            //        var toAddress = users.Select(x => MailboxAddress.Parse(x.Email)).ToList();
+            //        var reportContent = await GetReportContentAsync(reports);
+            //        var subject = $"THÔNG BÁO TOOL NGỪNG HOẠT ĐỘNG";
+            //        SendMail(subject, reportContent, toAddress);
+            //        await UpdateSendMail(reports);
+            //    }
+            //}
 
             await Task.FromResult(1);
             Logger.LogInformation("Finish worker: Something done...");
@@ -115,7 +115,7 @@ namespace Devmoba.ToolManager.BackgroundWorkers.Workers
             {
                 foreach (var tool in rp.ToolInactives)
                 {
-                    await _toolAppService.UpdateAsync(tool.Id, null, true);
+                    await _toolAppService.UpdateStateAsync(tool.Id, null, ProcessState.NA, true);
                 }
             } 
         }

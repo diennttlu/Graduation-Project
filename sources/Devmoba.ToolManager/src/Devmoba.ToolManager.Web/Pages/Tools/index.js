@@ -3,10 +3,20 @@
     Inactive: 0
 }
 
+const ProcessState = {
+    NA: 0,
+    Killed: 1,
+    Started: 2
+}
+
 const SwitchTool = {
     TurnOn: 1,
     TurnOff: 0
 }
+
+const StartedState = "<span class='online-status'><i class='fa fa-circle' aria-hidden='true'></i> Started</span>";
+const KilledStatus = "<span class='offline-status'><i class='fa fa-circle-thin' aria-hidden='true'></i> Killed</span>";
+const NAStatus = "<span><i class='fa fa-circle-thin' aria-hidden='true'></i> N/A</span>";
 
 const ActiveStatus = "<span class='online-status'><i class='fa fa-circle' aria-hidden='true'></i> Active</span>";
 const InactiveStatus = "<span class='offline-status'><i class='fa fa-circle-thin' aria-hidden='true'></i> Inactive</span>";
@@ -19,23 +29,32 @@ $(function () {
 
     connection.on("ReceiveFromClient", (result) => {
         setTimeout(function () {
-            if (result.sw == SwitchTool.TurnOn) {
-                if (result.isSuccess) {
-                    abp.notify.info(l('TurnOnToolSuccess'));
+            if (result.errorMessage) {
+                ShowErrorMessage(result.errorMessage);
+                return;
+            }
 
-                } else {
-                    ShowErrorMessage(result.errorMessage);
-                }
-            } else { // TurnOff
-                if (result.isSuccess && !result.errorMessage) {
+            switch (result.sw) {
+                case SwitchTool.TurnOn:
+                    var rowSelector = $(`#id_${result.toolId}`).parent().parent();
+                    var data = dataTable.row(rowSelector).data();
+                    data.toolStatus = ToolStatus.Active;
+                    data.processState = ProcessState.Started;
+                    dataTable.row(rowSelector).data(data);
+
+                    abp.notify.info(l('TurnOnToolSuccess'));
+                    return;
+                case SwitchTool.TurnOff:
                     var rowSelector = $(`#id_${result.toolId}`).parent().parent();
                     var data = dataTable.row(rowSelector).data();
                     data.toolStatus = ToolStatus.Inactive;
+                    data.processState = ProcessState.Killed;
                     dataTable.row(rowSelector).data(data);
+
                     abp.notify.info(l('TurnOffToolSuccess'));
-                } else {
-                    ShowErrorMessage(result.errorMessage);
-                }
+                    return;
+                default:
+                    return;
             }
         }, 1000);
     });
@@ -48,6 +67,7 @@ $(function () {
         data.version = tool.version;
         data.toolStatus = tool.toolStatus;
         data.lastUpdate = tool.lastUpdate;
+        data.processState = tool.processState;
         data.processId = tool.processId;
         data.exeFilePath = tool.exeFilePath;
         dataTable.row(rowSelector).data(data);
@@ -154,9 +174,23 @@ $(function () {
                 orderable: false,
                 targets: [7],
                 render: function (data, type, row, meta) {
-                    return data;
+                    switch (data) {
+                        case ProcessState.Started:
+                            return StartedState;
+                        case ProcessState.Killed:
+                            return KilledStatus;
+                        default:
+                            return NAStatus;
+                    }
                 }
             },
+            //{
+            //    orderable: false,
+            //    targets: [7],
+            //    render: function (data, type, row, meta) {
+            //        return data;
+            //    }
+            //},
             {
                 orderable: false,
                 targets: [8],
@@ -168,10 +202,10 @@ $(function () {
                 targets: [9],
                 render: function (data, type, row, meta) {
                     var html = ``;
-                    if ((row.toolStatus == ToolStatus.Inactive) && abp.auth.isGranted('ToolGroup.TurnOn')) {
+                    if (row.processId > 0 && row.toolStatus == ToolStatus.Inactive && abp.auth.isGranted('ToolGroup.TurnOn')) {
                         html += `<button class='btnTurnOn btn-sm btn-outline-success' data-id='${row.id}' data-username='${row.username}'><i class='fas fa-power-off'></i> On</button>`;
                     }
-                    if ((row.toolStatus == ToolStatus.Active) && abp.auth.isGranted('ToolGroup.TurnOff')) {
+                    if (row.exeFilePath && row.toolStatus == ToolStatus.Active && abp.auth.isGranted('ToolGroup.TurnOff')) {
                         html += `<button class='btnTurnOff btn-sm btn-outline-danger'  data-id='${row.id}' data-username='${row.username}'><i class='fas fa-power-off'></i> Off</button>`;
                     }
                     html += `<button class='btnDelete btn-sm btn-outline-dark'  data-id='${row.id}'><i class='fas fa-trash'></i> Delete</button>`;
@@ -187,8 +221,9 @@ $(function () {
             { data: "username", width: "130px", class: "content-cell" },
             { data: "toolStatus", width: "100px", class: "content-cell" },
             { data: "lastUpdate", width: "120px", class: "content-cell" },
-            { data: "processId", width: "80px", class: "content-cell" },
-            { data: "exeFilePath", width: "470px", class: "scroll-cell" },
+            { data: "processState", width: "120px", class: "content-cell" },
+            //{ data: "processId", width: "80px", class: "content-cell" },
+            { data: "exeFilePath", width: "400px", class: "scroll-cell" },
             { data: null, width: "130px", class: "btn-command" }
         ]
     });

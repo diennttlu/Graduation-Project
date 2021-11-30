@@ -1,5 +1,4 @@
-﻿using Devmoba.ToolManager.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Volo.Abp.Domain.Entities;
 
@@ -14,6 +13,8 @@ namespace Devmoba.ToolManager
         public DateTime LastUpdate { get; set; }
 
         public Guid UserId { get; set; }
+
+        public long Timestamp { get; set; }
 
         //public ClientStatus ClientStatus { get; set; }
 
